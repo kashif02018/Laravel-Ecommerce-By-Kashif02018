@@ -5,10 +5,10 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Products extends Model
+class WishList extends Model
 {
     use HasFactory;
-    protected $table = 'products';
+    protected $table = 'wishlist';
     protected $guarded = [];
 
     public function user_name()
@@ -16,11 +16,9 @@ class Products extends Model
         return $this->belongsTo(User::class,'id');
     }
 
-    public function totalOrders($id)
-    {
-        return OrderDetail::where('product_id',$id)->count();
-
-    }
+    function item(){
+        return $this->belongsTo(Products::class,'product_id');
+     }
 
    
     

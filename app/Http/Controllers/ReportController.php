@@ -8,41 +8,34 @@ use App\Models\OrderMater;
 use App\Models\OrderDetail;
 use App\Models\Products;
 use Session;
+use DB;
 use Hash;
 class ReportController extends Controller
 {
 
     function allCustomers(){
-        $data = OrderMater::with('user')->get();
+        $data = User::all();
         // dd($data);
 
         return view('admin.reports.customers',compact('data'));
     }
     
     function saleReport(){
-        $data = OrderMater::with('details','user')->get();
-        // dd($data);
-        $total = OrderMater::count();
-        $pending = OrderMater::whereNotIn('status',['Recieved'])->whereNotIn('status',['Cancelled'])->count();
-        $delivered = OrderMater::where('status','Recieved')->count();
-        $cancelled = OrderMater::where('status','Cancelled')->count();
+        $data = OrderMater::with('details','user')->where('status','Recieved')->get();
+        $totalAmount = OrderMater::where('status','Recieved')->sum('grand_total');
 
-        $stats = [$total,$pending,$delivered,$cancelled];
+        // dd($totalAmount);
 
-        return view('admin.reports.sales',compact('data','stats'));
+        return view('admin.reports.sales',compact('data','totalAmount'));
     }
 
 
     function topItems(){
-        $data = OrderMater::with('details','user')->get();
+     
+        $data = OrderDetail::with('item')->select('product_id')->groupBy('product_id')->get();
         // dd($data);
-        $total = OrderMater::count();
-        $pending = OrderMater::whereNotIn('status',['Recieved'])->whereNotIn('status',['Cancelled'])->count();
-        $delivered = OrderMater::where('status','Recieved')->count();
-        $cancelled = OrderMater::where('status','Cancelled')->count();
 
-        $stats = [$total,$pending,$delivered,$cancelled];
-
-        return view('admin.reports.topItems',compact('data','stats'));
+        
+        return view('admin.reports.topItems',compact('data'));
     }
 }

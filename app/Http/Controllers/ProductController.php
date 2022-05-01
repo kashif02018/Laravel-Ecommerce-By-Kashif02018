@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Models\User;
 use App\Models\Products;
+use App\Models\WishList;
 class ProductController extends Controller
 {
     /**
@@ -80,6 +81,29 @@ class ProductController extends Controller
        
         $item->update($data);
         return redirect('/products'); 
+    }
+
+
+    function storeWishlist(Request $request){
+
+            WishList::create($request->except('_token'));
+
+            return "Item added to wishlist";
+
+    }
+
+
+    function removeWishlist(Request $request){
+        $data = WishList::where('user_id',Auth::user()->id)->where('product_id',$request->product_id)->delete();
+        return "Item removed succussfully!";
+
+    }
+
+    function showWishlist(){
+        $data = WishList::with('item')->where('user_id',Auth::user()->id)->get();
+
+        return view('website.wishlist',compact('data'));
+
     }
 
    

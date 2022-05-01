@@ -24,10 +24,10 @@
                                         <tr>
                                             <th>Sr#</th>
                                             <th>Customer</th>
-                                            <th>Items</th>
-                                            <th>Grand Total</th>
+                                            <th>Mobile</th>
+                                            <th>Email</th>
                                             <th>Date</th>
-                                            <th>Status</th>
+                                            <th>Total Orders</th>
                                             <th>Action</th>
 
                                         </tr>
@@ -38,12 +38,14 @@
                                        
                                             <tr>
                                                 <td>{{$index+1}}</td>
-                                                <td>{{$detail->user->name}}</td>
-                                                <td>{{$detail->total_item}}</td>
-                                                <td>PKR {{$detail->grand_total}}/-</td>
+                                                <td>{{$detail->name}}</td>
+                                                <td>{{$detail->mobile}}</td>
+                                                <td>{{$detail->email}}/-</td>
                                                 <td>{{$detail->created_at}}</td>
                                                 <td>
-                                                    <span class="badge badge-warning">{{$detail->status}}</span>
+                                                    <span class="badge badge-warning">
+                                                        {{$detail->OrderCount($detail->id) }}
+                                                    </span>
                                                 </td>
 
                                                 <td>
@@ -79,3 +81,16 @@
 </div>
 
 @include('admin.partials.footer')
+
+<script>
+$(document).ready(function() {
+    $('#datatablesSimple').DataTable( {
+        "order": [[ 5, "desc" ]],
+        "bFilter": false,
+        "bPaginate": false,
+        "bLengthChange": false,
+        "bInfo": false,
+        "bAutoWidth": false 
+    } );
+} );
+</script>

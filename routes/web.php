@@ -56,6 +56,12 @@ Route::get('/manage/all-orders', [App\Http\Controllers\OrderController::class, '
 Route::get('/manage/order-detail/{id}', [App\Http\Controllers\OrderController::class, 'orderView'])->name('orderSummary');
 Route::post('/manage/order-status', [App\Http\Controllers\OrderController::class, 'manageOrderStatus'])->name('manageOrderStatus');
 
+// Manage Wislist route
+Route::post('/wishlist/module/store', [App\Http\Controllers\ProductController::class, 'storeWishlist'])->name('storeWishlist');
+Route::get('/wishlist/module/remove', [App\Http\Controllers\ProductController::class, 'removeWishlist'])->name('removeWishlist');
+Route::get('/wishlist/module/show-wishlist', [App\Http\Controllers\ProductController::class, 'showWishlist'])->name('showWishlist');
+
+
 
 // Manage Reports route
 Route::get('/report/all-customers', [App\Http\Controllers\ReportController::class, 'allCustomers'])->name('allCustomers');

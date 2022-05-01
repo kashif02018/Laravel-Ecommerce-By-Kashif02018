@@ -34,6 +34,22 @@
                                                 </div>
                                             
                                             </div>
+                                            <div class="row mb-3">
+                                         
+                                                <div class="col-md-12">
+                                                    <div class="form-floating mb-3 mb-md-0">
+                                                        <input id="inputFirstName" type="text" placeholder="Enter your mobile" class="form-control @error('mobile') is-invalid @enderror" name="mobile" value="{{ old('mobile') }}" required autocomplete="mobile" autofocus>
+
+                                                        @error('mobile')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
+                                                        <label for="inputFirstName">Enter your mobile</label>
+                                                    </div>
+                                                </div>
+                                            
+                                            </div>
                                             <div class="form-floating mb-3">
                                                 <input id="inputEmail" placeholder="name@example.com" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
 
@@ -43,6 +59,16 @@
                                                     </span>
                                                 @enderror
                                                 <label for="inputEmail">Email address</label>
+                                            </div>
+                                            <div class="form-floating mb-3">
+                                                <textarea id="inputAddress" placeholder="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}" required autocomplete="address"></textarea>
+
+                                                @error('address')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                                <label for="inputAddress">Address</label>
                                             </div>
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
@@ -79,20 +105,7 @@
                     </div>
                 </main>
             </div>
-            <div id="layoutAuthentication_footer">
-                <footer class="py-4 bg-light mt-auto">
-                    <div class="container-fluid px-4">
-                        <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2021</div>
-                            <div>
-                                <a href="#">Privacy Policy</a>
-                                &middot;
-                                <a href="#">Terms &amp; Conditions</a>
-                            </div>
-                        </div>
-                    </div>
-                </footer>
-            </div>
+           
         </div>
 </div>
 @include('admin.partials.footer')

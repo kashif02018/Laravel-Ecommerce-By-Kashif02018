@@ -7,84 +7,41 @@
     <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Manage Orders</h1>
+                        <h1 class="mt-4">Top Selling Items Report</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="/home">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Orders</li>
+                            <li class="breadcrumb-item active">Top Items</li>
                         </ol>
-                        <div class="row">
-                                <div class="col-xl-3 col-md-6">
-                                    <div class="card bg-info text-white mb-4">
-                                        <div class="card-body">Total Orders</div>
-                                        <div class="card-footer d-flex align-items-center justify-content-between">
-                                            <a class="small text-white stretched-link" href="#">{{$stats[0]}}</a>
-                                        
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-3 col-md-6">
-                                    <div class="card bg-warning text-white mb-4">
-                                        <div class="card-body">Pending</div>
-                                        <div class="card-footer d-flex align-items-center justify-content-between">
-                                            <a class="small text-white stretched-link" href="#">{{$stats[1]}}</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-3 col-md-6">
-                                    <div class="card bg-success text-white mb-4">
-                                        <div class="card-body">Delivered</div>
-                                        <div class="card-footer d-flex align-items-center justify-content-between">
-                                            <a class="small text-white stretched-link" href="#">{{$stats[2]}}</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-3 col-md-6">
-                                    <div class="card bg-danger text-white mb-4">
-                                        <div class="card-body">Cancelled</div>
-                                        <div class="card-footer d-flex align-items-center justify-content-between">
-                                            <a class="small text-white stretched-link" href="#">{{$stats[3]}}</a>
-                                        </div>
-                                    </div>
-                                </div>
-                        </div>
+                      
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                               Orders List
+                              Top  Selling Items
                             </div>
                             <div class="card-body">
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                            <th>Sr#</th>
-                                            <th>Customer</th>
-                                            <th>Items</th>
-                                            <th>Grand Total</th>
-                                            <th>Date</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
+                                            <th>Item</th>
+                                            <th>Orders</th>
 
                                         </tr>
                                     </thead>
                                   
                                     <tbody>
                                         @forelse($data as $index=>$detail)
-                                       
+                                        
                                             <tr>
-                                                <td>{{$index+1}}</td>
-                                                <td>{{$detail->user->name}}</td>
-                                                <td>{{$detail->total_item}}</td>
-                                                <td>PKR {{$detail->grand_total}}/-</td>
-                                                <td>{{$detail->created_at}}</td>
+                                                <td>{{$detail->item->name}}</td>
                                                 <td>
-                                                    <span class="badge badge-warning">{{$detail->status}}</span>
-                                                </td>
+                                                <span class="badge badge-success">
+                                                    {{$detail->item->totalOrders($detail->product_id) }}
 
-                                                <td>
-                                                    <a href="{{route('orderSummary',$detail->id)}}">
-                                                    <span class="badge badge-success">View Order Details</span>
-                                                    </a>
-                                                </td>
+                                                </span>
+
+                                                </td>                                              
+
+                                              
                                             </tr>
                                         @empty 
                                             <p>No record found! </p>
@@ -113,3 +70,15 @@
 </div>
 
 @include('admin.partials.footer')
+<script>
+$(document).ready(function() {
+    $('#datatablesSimple').DataTable( {
+        "order": [[ 1, "desc" ]],
+        "bFilter": false,
+        "bPaginate": false,
+        "bLengthChange": false,
+        "bInfo": false,
+        "bAutoWidth": false 
+    } );
+} );
+</script>

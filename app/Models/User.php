@@ -21,7 +21,9 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
-        'image'
+        'image',
+        'mobile',
+        'address'
     ];
 
     /**
@@ -45,5 +47,10 @@ class User extends Authenticatable implements MustVerifyEmail
 
     function products(){
         $this->hasMany(Products::class,'created_by');
+    }
+
+    // get total number of orders
+    function OrderCount($id){
+        return OrderMater::where('user_id',$id)->count();
     }
 }
