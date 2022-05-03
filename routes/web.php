@@ -61,6 +61,10 @@ Route::post('/wishlist/module/store', [App\Http\Controllers\ProductController::c
 Route::get('/wishlist/module/remove', [App\Http\Controllers\ProductController::class, 'removeWishlist'])->name('removeWishlist');
 Route::get('/wishlist/module/show-wishlist', [App\Http\Controllers\ProductController::class, 'showWishlist'])->name('showWishlist');
 
+// Manage Compare List route
+Route::post('/compareList/module/store', [App\Http\Controllers\ProductController::class, 'storecompareList'])->name('storecompareList');
+Route::get('/compareList/module/remove', [App\Http\Controllers\ProductController::class, 'removecompareList'])->name('removecompareList');
+Route::get('/compareList/module/show-compareList', [App\Http\Controllers\ProductController::class, 'showcompareList'])->name('showcompareList');
 
 
 // Manage Reports route

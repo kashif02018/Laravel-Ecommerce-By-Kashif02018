@@ -68,9 +68,14 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('showWishlist') }}"
+                                    <a class="dropdown-item" href="{{ route('showWishlist') }}"
                                       >
                                         Wishlist
+                                    </a>
+
+                                    <a class="dropdown-item" href="{{ route('showcompareList') }}"
+                                      >
+                                        Compare List
                                     </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();

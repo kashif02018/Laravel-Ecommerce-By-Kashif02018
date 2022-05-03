@@ -4,7 +4,7 @@
                @if($item)
                <form action="{{route('storeSession')}}" method="post">
                    @csrf
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <a href="{{route('productView',$item->id)}}">
                                 <img src="/{{$item->image}}" style="height:200px;widht:200px;">
                                 {{$item->name}}
@@ -20,11 +20,14 @@
                         <button class="btn btn-success" type="submit">Add to cart</button>
                             @auth
                                 <a href="javascript:void(0)" class="btn btn-primary" onclick="saveToWishlist('{{$item->id}}','{{Auth::user()->id}}')"> Add to Wislist</a>
+                                <a href="javascript:void(0)" class="btn btn-primary" onclick="saveToCompareList('{{$item->id}}','{{Auth::user()->id}}')"> Add to Compare</a>
+                            
                             @endauth
 
                             @guest 
 
                             <a href="javascript:void(0)" class="btn btn-primary" onclick="saveToWishlist('{{$item->id}}','0')"> Add to Wislist</a>
+                            <a href="javascript:void(0)" class="btn btn-primary" onclick="saveToCompareList('{{$item->id}}','0')"> Add to Compare</a>
 
                             @endguest
                         <hr>
@@ -48,6 +51,27 @@
                 alert('User ID '+ userID);
                 $.ajax({
                     "url":'{{route("storeWishlist")}}',
+                    "method":'POST',
+                    'data':{product_id:productID, user_id:userID,_token: '{{csrf_token()}}'},
+                    success:function(resp){
+                            alert(resp);
+                    },
+                    error:function(error){
+                            alert(error);
+                    }
+                })
+
+               }
+            }
+
+
+            function saveToCompareList(productID,userID){
+               if(userID == 0){
+                   alert('Login is required to add product in compare list!');
+               }else{
+                alert('User ID '+ userID);
+                $.ajax({
+                    "url":'{{route("storecompareList")}}',
                     "method":'POST',
                     'data':{product_id:productID, user_id:userID,_token: '{{csrf_token()}}'},
                     success:function(resp){

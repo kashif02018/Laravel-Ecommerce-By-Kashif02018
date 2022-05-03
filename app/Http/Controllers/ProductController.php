@@ -6,6 +6,8 @@ use Auth;
 use App\Models\User;
 use App\Models\Products;
 use App\Models\WishList;
+use App\Models\CompareList;
+
 class ProductController extends Controller
 {
     /**
@@ -105,6 +107,24 @@ class ProductController extends Controller
         return view('website.wishlist',compact('data'));
 
     }
+
+    // manage compare list
+
+    function storecompareList(Request $request){
+
+        CompareList::create($request->except('_token'));
+
+        return "Item added to compare list";
+
+    }
+
+    function showcompareList(){
+        $data = CompareList::with('item')->where('user_id',Auth::user()->id)->get();
+
+        return view('website.compare-list',compact('data'));
+
+    }
+
 
    
 }
